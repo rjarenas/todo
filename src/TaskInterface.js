@@ -68,6 +68,7 @@ const TaskInterface = () => {
   }
 
   const handleCheckClick = (e) => {
+    console.log(e.target.id);
     updateTask(e.target.id, e.target.checked);
   }
 
