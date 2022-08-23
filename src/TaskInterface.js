@@ -10,10 +10,10 @@ const TaskInterface = () => {
   const [taskId, setTaskId] = useState([]);
 
   useEffect( () => {
-    getTasks();
+    refreshTasks();
   });
 
-  const getTasks = () => {
+  const refreshTasks = () => {
     fetch('http://localhost:3001/tasks')
       .then(response => {
         return response.json();
@@ -31,7 +31,7 @@ const TaskInterface = () => {
   }
 
   const  createTask = (task, user_id) => {
-    fetch('http://localhost:3001/tasks', {
+    return fetch('http://localhost:3001/tasks', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -63,8 +63,8 @@ const TaskInterface = () => {
   }
 
   const handleAddTaskOnClick = (e) => {
-    setTaskLabels(oldTaskLabels => [...oldTaskLabels, currentTaskInput]);
-    createTask(currentTaskInput,'0');
+    createTask(currentTaskInput,'0')
+    .then( (response) => refreshTasks());
   }
 
   const handleCheckClick = (e) => {
@@ -86,7 +86,12 @@ const TaskInterface = () => {
           { taskLabels.length === 0 ? <div></div> :
             <FormGroup>
               { taskLabels.map( (label,i) =>
-                <FormControlLabel key={taskId[i]} control={<Checkbox id = {taskId[i].toString()} onChange = {handleCheckClick} />} label= {label}/>
+                <FormControlLabel key={taskId[i]} 
+                  control={<Checkbox id = {taskId[i].toString()} 
+                  onChange = {handleCheckClick}  
+                  checked={taskComplete[i]} 
+                  inputProps={{ 'aria-label': 'controlled' }} />} 
+                label= {label}/>
               )}
             </FormGroup>
           }
