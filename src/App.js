@@ -1,6 +1,6 @@
 import './App.css';
 import * as React from 'react';
-import TaskInterface from './TaskInterface.js'
+import TaskCard from './containers/TaskCard';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </head>
       <main>
-        <TaskInterface />
+        <TaskCard user_id = "1"/>
       </main>
     </React.Fragment>
   );
